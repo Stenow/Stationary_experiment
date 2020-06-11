@@ -6,9 +6,9 @@ library(TTR)
 
 Mean_average  <-5.38     #The average used in the model
 Variance_sd <-2.07       #The sd used in the model
-Number_of_samples <- 1000  #The maximum number of samples
-Number_of_runs <- 100    #Number of times to run the model
-
+Number_of_samples <- 50  #The maximum number of samples
+Number_of_runs <- 25    #Number of times to run the model
+Number_of_samples_acctually_taken  <- 20 #The number of samples actually taken, adds a line for them in the graph, remove it by comenting ut out in the end 
 
 Raw_dataframe_exp <- data.frame(matrix(0, ncol = Number_of_runs, nrow = Number_of_samples))  #Create a dataframe for the simulated data
 
@@ -40,11 +40,12 @@ data_long$n_sample <- rep(1:Number_of_samples, times=Number_of_runs) # This adds
 
 ggplot(data_long, aes(x=n_sample, y=value, color=key))+  #it is okay to get a error message that they removed rows equl to the number of runs (its becouse the first average is blank)
   geom_point(show.legend = FALSE, alpha=0.5)+
+  geom_vline(aes(xintercept=Number_of_samples_acctually_taken), color="blue")+ #Enable this line and set the value of samples used to show that on the graph 
   geom_hline(aes(yintercept=Mean_average))+
   geom_hline(aes(yintercept=Mean_average-(Variance_sd/3)), linetype="dashed")+  ##The errorbars are 1/3 of sd, to line up with the final derivation, might want to change that
   geom_hline(aes(yintercept=Mean_average+(Variance_sd/3)),linetype="dashed")+
   scale_y_continuous(limits = c(0,Mean_average+Variance_sd*2), n.breaks = 7)+
-  xlab("Number of samples")+
+  xlab("Number of samples taken")+
   theme_classic()+
   annotate("text", x = Number_of_samples/2, y = Mean_average+Variance_sd*1.5, label = paste("Mean value:",Mean_average,  #This adds the values assigned as the settings for the model, the pase comand ties it together
                                                                                          "\ \nVariance sd:", Variance_sd, #\ \n in a string makes a new row, note the spaces between \ \!
