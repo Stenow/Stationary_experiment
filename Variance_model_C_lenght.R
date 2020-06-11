@@ -4,7 +4,7 @@ library(TTR)
 
 Lugol_stats <- data.frame("Experiment"= c("EXP","STAT","LSTAT_NH4", "LSTAT_NO3"), "Mean_c_length" = c(5.3807, 3.8943, NaN, NaN), "Variance_c_length" = c(2.0677, 1.6253,NaN,NaN))
 
-
+Mean_average  <-5.3807
 Variance_sd <-2.0833 
 
 
@@ -14,7 +14,7 @@ Raw_dataframe_exp <- data.frame(matrix(0, ncol = 100, nrow = 100))  #Create a da
 for (i in 1:length(Raw_dataframe_exp)) {
   
   
-  Raw_dataframe_exp[i,]<- rnorm(100, mean=5.3807, sd=2.0677)  #Create the simulated data 100 tines for the length of the empty dataframe
+  Raw_dataframe_exp[i,]<- rnorm(100, mean=Mean_average, sd=Variance_sd)  #Create the simulated data 100 tines for the length of the empty dataframe
   
   }
 
@@ -38,8 +38,9 @@ data_long$n_sample <- rep(1:100, times=100) # This adds the number of samples th
 
 ggplot(data_long, aes(x=n_sample, y=value, color=key))+
   geom_point(show.legend = FALSE, alpha=0.5)+
-  geom_hline(aes(yintercept=5.3807),show.legend = FALSE)+
-  geom_hline(aes(yintercept=5.3807-2.0677))+
-  geom_hline(aes(yintercept=5.3807+2.0677))+
+  geom_hline(aes(yintercept=Mean_average))+
+  geom_hline(aes(yintercept=Mean_average-Variance_sd), linetype="dashed")+
+  geom_hline(aes(yintercept=Mean_average+Variance_sd),linetype="dashed")+
   scale_y_continuous(limits = c(0,9), n.breaks = 6)+
+  xlab("Number of samples")+
   theme_classic()
