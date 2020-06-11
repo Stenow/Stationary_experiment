@@ -4,9 +4,9 @@ library(TTR)
 
 #Lugol_stats <- data.frame("Experiment"= c("EXP","STAT","LSTAT_NH4", "LSTAT_NO3"), "Mean_c_length" = c(5.3807, 3.8943, NaN, NaN), "Variance_c_length" = c(2.0677, 1.6253,NaN,NaN))
 
-Mean_average  <-5.3807  #The average used in the model
-Variance_sd <-2.0833    #The sd used in the model
-Number_of_samples <- 100#The maximum number of samples
+Mean_average  <-5.38     #The average used in the model
+Variance_sd <-2.07       #The sd used in the model
+Number_of_samples <- 100  #The maximum number of samples
 Number_of_runs <- 100    #Number of times to run the model
 
 
@@ -41,8 +41,13 @@ data_long$n_sample <- rep(1:Number_of_samples, times=Number_of_runs) # This adds
 ggplot(data_long, aes(x=n_sample, y=value, color=key))+
   geom_point(show.legend = FALSE, alpha=0.5)+
   geom_hline(aes(yintercept=Mean_average))+
-  geom_hline(aes(yintercept=Mean_average-Variance_sd), linetype="dashed")+
-  geom_hline(aes(yintercept=Mean_average+Variance_sd),linetype="dashed")+
-  scale_y_continuous(limits = c(0,9), n.breaks = 6)+
+  geom_hline(aes(yintercept=Mean_average-(Variance_sd/3)), linetype="dashed")+  ##The errorbars are 1/3 of sd, to line up with the final derivation, might want to change that
+  geom_hline(aes(yintercept=Mean_average+(Variance_sd/3)),linetype="dashed")+
+  scale_y_continuous(limits = c(0,10), n.breaks = 7)+
   xlab("Number of samples")+
-  theme_classic()
+  theme_classic()+
+  annotate("text", x = Number_of_runs/2, y = Mean_average+Variance_sd*1.5, label = paste("Mean value:",Mean_average,
+                                                                                         "\ \nVariance sd:", Variance_sd,
+                                                                                         "\ \n Max number of samples:", Number_of_runs,
+                                                                                         "\ \n Number of runs:", Number_of_runs))
+  
