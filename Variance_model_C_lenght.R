@@ -2,28 +2,30 @@ library(tidyverse)
 library(TTR)
 
 
-Lugol_stats <- data.frame("Experiment"= c("EXP","STAT","LSTAT_NH4", "LSTAT_NO3"), "Mean_c_length" = c(5.3807, 3.8943, NaN, NaN), "Variance_c_length" = c(2.0677, 1.6253,NaN,NaN))
+#Lugol_stats <- data.frame("Experiment"= c("EXP","STAT","LSTAT_NH4", "LSTAT_NO3"), "Mean_c_length" = c(5.3807, 3.8943, NaN, NaN), "Variance_c_length" = c(2.0677, 1.6253,NaN,NaN))
 
-Mean_average  <-5.3807
-Variance_sd <-2.0833 
+Mean_average  <-5.3807  #The average used in the model
+Variance_sd <-2.0833    #The sd used in the model
+Number_of_samples <- 100#The maximum number of samples
+Number_of_runs <- 100    #Number of times to run the model
 
 
-Raw_dataframe_exp <- data.frame(matrix(0, ncol = 100, nrow = 100))  #Create a dataframe for the simulated data
+Raw_dataframe_exp <- data.frame(matrix(0, ncol = Number_of_runs, nrow = Number_of_samples))  #Create a dataframe for the simulated data
 
 
-for (i in 1:length(Raw_dataframe_exp)) {
+for (i in 1:Number_of_samples) {
   
   
-  Raw_dataframe_exp[i,]<- rnorm(100, mean=Mean_average, sd=Variance_sd)  #Create the simulated data 100 tines for the length of the empty dataframe
+  Raw_dataframe_exp[i,]<- rnorm(Number_of_runs, mean=Mean_average, sd=Variance_sd)  #Create the simulated data 100 tines for the length of the empty dataframe
   
   }
 
 
 
-Sliding_mean_exp <-data.frame(matrix(0, ncol = 2, nrow = 100)) #Create a dataframe for the sliding average
-Sliding_sd_exp <-data.frame(matrix(0, ncol = 100, nrow = 100)) #Creating a dataframe for the slding sd
+Sliding_mean_exp <-data.frame(matrix(0, ncol = Number_of_runs, nrow = Number_of_samples)) #Create a dataframe for the sliding average
+Sliding_sd_exp <-data.frame(matrix(0, ncol = Number_of_runs, nrow = Number_of_samples)) #Creating a dataframe for the slding sd
 
-for (i in 1:length(Raw_dataframe_exp)) { 
+for (i in 1:Number_of_runs) { 
   
   Sliding_mean_exp[,i]  <- runMean(Raw_dataframe_exp[,i], n=1, cumulative = TRUE) #Create the sliding mean, cumulative adds the new number each time, n determines when the firs value should be 
   Sliding_sd_exp[,i] <- runSD(Raw_dataframe_exp[,i], n=1, cumulative = TRUE) #same but for sd
@@ -33,7 +35,7 @@ for (i in 1:length(Raw_dataframe_exp)) {
 }
 
 data_long <- gather(Sliding_mean_exp)  #this rearange the data to a format that can acctually be plotted
-data_long$n_sample <- rep(1:100, times=100) # This adds the number of samples that is used for the average, THIS WILL NEED TO CHANGE IF I WANT TO CHANGE NUMBER OF RUNS AND MAX NUMBER OF SAMPLES!
+data_long$n_sample <- rep(1:Number_of_samples, times=Number_of_runs) # This adds the number of samples that is used for the average, THIS WILL NEED TO CHANGE IF I WANT TO CHANGE NUMBER OF RUNS AND MAX NUMBER OF SAMPLES!
 
 
 ggplot(data_long, aes(x=n_sample, y=value, color=key))+
