@@ -43,7 +43,7 @@ ggplot(data_long, aes(x=n_sample, y=value, color=key))+
   geom_hline(aes(yintercept=Mean_average))+
   geom_hline(aes(yintercept=Mean_average-(Variance_sd/3)), linetype="dashed")+  ##The errorbars are 1/3 of sd, to line up with the final derivation, might want to change that
   geom_hline(aes(yintercept=Mean_average+(Variance_sd/3)),linetype="dashed")+
-  scale_y_continuous(limits = c(0,10), n.breaks = 7)+
+  scale_y_continuous(limits = c(0,Mean_average+Variance_sd*2), n.breaks = 7)+
   xlab("Number of samples")+
   theme_classic()+
   annotate("text", x = Number_of_runs/2, y = Mean_average+Variance_sd*1.5, label = paste("Mean value:",Mean_average,
