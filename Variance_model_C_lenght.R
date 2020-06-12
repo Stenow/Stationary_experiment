@@ -1,5 +1,5 @@
-library(tidyverse)
-library(TTR)
+library(tidyverse) # run install.packages('tidyverse') in the console if you don't have it installed
+library(TTR)  #run install.packages('TTR') in the console if you don't have it installed
 
 
 #Lugol_stats <- data.frame("Experiment"= c("EXP","STAT","LSTAT_NH4", "LSTAT_NO3"), "Mean_c_length" = c(5.3807, 3.8943, NaN, NaN), "Variance_c_length" = c(2.0677, 1.6253,NaN,NaN))
@@ -7,7 +7,7 @@ library(TTR)
 Mean_average  <-5.38     #The average used in the model
 Variance_sd <-2.07       #The sd used in the model
 Number_of_samples <- 50  #The maximum number of samples
-Number_of_runs <- 25    #Number of times to run the model
+Number_of_runs <- 100    #Number of times to run the model
 Number_of_samples_acctually_taken  <- NaN #The number of samples actually taken, adds a vertical line for them in the graph, remove it by setting it to NaN
 
 Raw_dataframe <- data.frame(matrix(0, ncol = Number_of_runs, nrow = Number_of_samples))  #Create a dataframe for the simulated data
