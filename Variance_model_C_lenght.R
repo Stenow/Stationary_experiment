@@ -8,34 +8,35 @@ Mean_average  <-5.38     #The average used in the model
 Variance_sd <-2.07       #The sd used in the model
 Number_of_samples <- 50  #The maximum number of samples
 Number_of_runs <- 25    #Number of times to run the model
-Number_of_samples_acctually_taken  <- 20 #The number of samples actually taken, adds a line for them in the graph, remove it by comenting ut out in the end 
+Number_of_samples_acctually_taken  <- NaN #The number of samples actually taken, adds a vertical line for them in the graph, remove it by setting it to NaN
 
-Raw_dataframe_exp <- data.frame(matrix(0, ncol = Number_of_runs, nrow = Number_of_samples))  #Create a dataframe for the simulated data
+Raw_dataframe <- data.frame(matrix(0, ncol = Number_of_runs, nrow = Number_of_samples))  #Create a dataframe for the simulated data
+
 
 
 for (i in 1:Number_of_samples) {
   
   
-  Raw_dataframe_exp[i,]<- rnorm(Number_of_runs, mean=Mean_average, sd=Variance_sd)  #Create the simulated data 100 tines for the length of the empty dataframe
+  Raw_dataframe[i,]<- rnorm(Number_of_runs, mean=Mean_average, sd=Variance_sd)  #Create the simulated data 100 tines for the length of the empty dataframe
   
   }
 
 
 
-Sliding_mean_exp <-data.frame(matrix(0, ncol = Number_of_runs, nrow = Number_of_samples)) #Create a dataframe for the sliding average
-Sliding_sd_exp <-data.frame(matrix(0, ncol = Number_of_runs, nrow = Number_of_samples)) #Creating a dataframe for the slding sd, right now im not using the sd 
+Sliding_mean <-data.frame(matrix(0, ncol = Number_of_runs, nrow = Number_of_samples)) #Create a dataframe for the sliding average
+Sliding_sd <-data.frame(matrix(0, ncol = Number_of_runs, nrow = Number_of_samples)) #Creating a dataframe for the slding sd, right now im not using the sd 
+
+
 
 for (i in 1:Number_of_runs) { 
   
-  Sliding_mean_exp[,i]  <- runMean(Raw_dataframe_exp[,i], n=1, cumulative = TRUE) #Create the sliding mean, cumulative adds the new number each time, n determines when the firs value should be 
-  Sliding_sd_exp[,i] <- runSD(Raw_dataframe_exp[,i], n=1, cumulative = TRUE) #same but for sd
-  
-  
+  Sliding_mean[,i]  <- runMean(Raw_dataframe[,i], n=1, cumulative = TRUE) #Create the sliding mean, cumulative adds the new number each time, n determines when the firs value should be 
+  Sliding_sd[,i] <- runSD(Raw_dataframe[,i], n=1, cumulative = TRUE) #same but for sd
   
 }
 
-data_long <- gather(Sliding_mean_exp)  #this rearange the data to a format that can acctually be plotted
-data_long$n_sample <- rep(1:Number_of_samples, times=Number_of_runs) # This adds the number of samples that is used for the average, THIS WILL NEED TO CHANGE IF I WANT TO CHANGE NUMBER OF RUNS AND MAX NUMBER OF SAMPLES!
+data_long <- gather(Sliding_mean)  #this rearange the data to a format that can acctually be plotted
+data_long$n_sample <- rep(1:Number_of_samples, times=Number_of_runs) # This adds the number of samples that is used for the average
 
 
 ggplot(data_long, aes(x=n_sample, y=value, color=key))+  #it is okay to get a error message that they removed rows equl to the number of runs (its becouse the first average is blank)
