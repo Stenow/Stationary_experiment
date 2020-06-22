@@ -10,32 +10,32 @@ The output is 6 figures:
 
 ![tex for the figure](Example_a.png?raw=true "Figure: 1")
 
-<center> *Figure 1: Average* </center>
+Figure 1: Average
 
 
 ![tex for the figure](Example_sd.png?raw=true "Figure: 2")
 
-<center> *Figure 2: Standard deviation* </center>
+Figure 2: Standard deviation
 
 
 ![tex for the figure](Example_se.png?raw=true "Figure: 3")
 
-<center> *Figure 3: Standard error* </center>
+Figure 3: Standard error
 
 
 ![tex for the figure](Example_a_sd.png?raw=true "Figure: 4")
 
-<center> *Figure 4: Average and standard deviation* </center>
+Figure 4: Average and standard deviation
 
 
 ![tex for the figure](Example_a_se.png?raw=true "Figure: 5")
 
-<center> *Figure 5: Average and standard error* </center>
+Figure 5: Average and standard error
 
 
 ![tex for the figure](Example_a_sd_se.png?raw=true "Figure: 6")
 
-<center> *Figure 6: Average, standard deviation and standard error* </center>
+Figure 6: Average, standard deviation and standard error
 
 
 
