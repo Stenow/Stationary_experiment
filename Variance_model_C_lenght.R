@@ -106,6 +106,8 @@ Figure_se <- ggplot(data_long_se, aes(x=n_sample, y=value, color=key))+  #it is 
   theme_classic()
 
 #Show them both in one figure
-grid.arrange(Figure_a,Figure_se)
+Figure_average_sd <- grid.arrange(Figure_a,Figure_sd)
+Figure_average_se <- grid.arrange(Figure_a,Figure_se)
+Figure_average_sd_se <- grid.arrange(Figure_a,Figure_sd, Figure_se)
 
 #Lugol_stats <- data.frame("Experiment"= c("EXP","STAT","LSTAT_NH4", "LSTAT_NO3"), "Mean_c_length" = c(5.3807, 3.8943, NaN, NaN), "Variance_c_length" = c(2.0677, 1.6253,NaN,NaN))
