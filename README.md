@@ -23,17 +23,17 @@ Figure 3: Standard error
 
 ![tex for the figure](Example_a_sd.png?raw=true "Figure: 4")
 
-Figure 1: Average and standard deviation
+Figure 4: Average and standard deviation
 
 
 ![tex for the figure](Example_a_se.png?raw=true "Figure: 5")
 
-Figure 1: Average and standard error
+Figure 5: Average and standard error
 
 
 ![tex for the figure](Example_a_sd_se.png?raw=true "Figure: 6")
 
-Figure 1: Average, standard deviation and standard error
+Figure 6: Average, standard deviation and standard error
 
 
 
