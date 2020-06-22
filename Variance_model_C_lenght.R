@@ -9,7 +9,7 @@ library(gridExtra)
 Mean_average  <-5.38     #The average used in the model
 Variance_sd <-2.07       #The sd used in the model
 Number_of_samples <- 50  #The maximum number of samples
-Number_of_runs <- 50    #Number of times to run the model
+Number_of_runs <- 30    #Number of times to run the model
 Number_of_samples_acctually_taken  <- NaN #The number of samples actually taken, adds a vertical line for them in the graph, remove it by setting it to NaN
 
 
@@ -59,8 +59,8 @@ data_long$n_sample <- rep(1:Number_of_samples, times=Number_of_runs) # This adds
 
 data_long_sd <- gather(Sliding_sd)
 data_long_sd$n_sample <- rep(1:Number_of_samples, times=Number_of_runs)
-
-
+data_long_se <- data_long_sd
+data_long_se$value <- data_long_se$value/sqrt(data_long_se$n_sample)
 
 
 
@@ -95,7 +95,17 @@ Figure_sd <- ggplot(data_long_sd, aes(x=n_sample, y=value, color=key))+  #it is 
   theme_classic()
 
 
+#Plot se
+Figure_se <- ggplot(data_long_se, aes(x=n_sample, y=value, color=key))+  #it is okay to get a error message that they removed rows equl to the number of runs (its becouse the first average is blank)
+  geom_point(show.legend = FALSE, alpha=0.5)+
+  geom_vline(aes(xintercept=Number_of_samples_acctually_taken), color="blue")+ #Enable this line and set the value of samples used to show that on the graph 
+  #geom_hline(aes(yintercept=Variance_sd))+
+  scale_y_continuous(limits = c(0,Variance_sd*2.5), n.breaks = 7)+
+  xlab("Number of samples taken")+
+  ylab("Standard error")+
+  theme_classic()
+
 #Show them both in one figure
-grid.arrange(Figure_a,Figure_sd)
+grid.arrange(Figure_a,Figure_se)
 
 #Lugol_stats <- data.frame("Experiment"= c("EXP","STAT","LSTAT_NH4", "LSTAT_NO3"), "Mean_c_length" = c(5.3807, 3.8943, NaN, NaN), "Variance_c_length" = c(2.0677, 1.6253,NaN,NaN))
