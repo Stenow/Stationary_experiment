@@ -9,7 +9,7 @@ library(gridExtra)
 Mean_average  <-5.38     #The average used in the model
 Variance_sd <-2.07       #The sd used in the model
 Number_of_samples <- 50  #The maximum number of samples
-Number_of_runs <- 100    #Number of times to run the model
+Number_of_runs <- 50    #Number of times to run the model
 Number_of_samples_acctually_taken  <- NaN #The number of samples actually taken, adds a vertical line for them in the graph, remove it by setting it to NaN
 
 
